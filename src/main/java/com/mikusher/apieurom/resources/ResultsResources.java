@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -36,11 +37,12 @@ public class ResultsResources {
     }
 
     @DeleteMapping("/results")
-    @ApiOperation(value = "Delete result, information in body")
+    @ApiOperation(value = "Delete result, information in body", hidden = true)
     public void deleteResult(@RequestBody Results results){
         resultsRepository.delete(results);
     }
 
+    @ApiIgnore
     @DeleteMapping("/results/{id}")
     @ApiOperation(value = "Delete result, information by Id")
     public void deleteResultById(@PathVariable(value = "id") long id){
@@ -48,7 +50,7 @@ public class ResultsResources {
     }
 
     @PutMapping("/results")
-    @ApiOperation(value = "Change value for result")
+    @ApiOperation(value = "Change value for result", hidden = true)
     public Results updateResult(@RequestBody Results results){
         return resultsRepository.save(results);
     }
