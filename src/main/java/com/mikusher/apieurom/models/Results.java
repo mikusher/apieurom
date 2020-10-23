@@ -2,6 +2,10 @@ package com.mikusher.apieurom.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name = "TB_RESULTS")
@@ -12,14 +16,13 @@ public class Results implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private Integer nOne;
-    private Integer nTwo;
-    private Integer nThree;
-    private Integer nFour;
-    private Integer nFive;
+    private String date;
 
-    private Integer sOne;
-    private Integer sTwo;
+    @ElementCollection
+    private List<String> balls_drawn = new ArrayList<>();
+
+    @ElementCollection
+    private List<String> lucky_stars = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -29,60 +32,28 @@ public class Results implements Serializable {
         this.id = id;
     }
 
-    public Integer getnOne() {
-        return nOne;
+    public String getDate() {
+        return date;
     }
 
-    public void setnOne(Integer nOne) {
-        this.nOne = nOne;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public Integer getnTwo() {
-        return nTwo;
+    public List<String> getBallsDrawn() {
+        return Collections.unmodifiableList(balls_drawn);
     }
 
-    public void setnTwo(Integer nTwo) {
-        this.nTwo = nTwo;
+    public void setBallsDrawn(Collection<String> balls_drawn) {
+        this.balls_drawn = new ArrayList<>(balls_drawn)  ;
     }
 
-    public Integer getnThree() {
-        return nThree;
+    public List<String> getLuckyStars() {
+        return Collections.unmodifiableList(lucky_stars);
     }
 
-    public void setnThree(Integer nThree) {
-        this.nThree = nThree;
-    }
-
-    public Integer getnFour() {
-        return nFour;
-    }
-
-    public void setnFour(Integer nFour) {
-        this.nFour = nFour;
-    }
-
-    public Integer getnFive() {
-        return nFive;
-    }
-
-    public void setnFive(Integer nFive) {
-        this.nFive = nFive;
-    }
-
-    public Integer getsOne() {
-        return sOne;
-    }
-
-    public void setsOne(Integer sOne) {
-        this.sOne = sOne;
-    }
-
-    public Integer getsTwo() {
-        return sTwo;
-    }
-
-    public void setsTwo(Integer sTwo) {
-        this.sTwo = sTwo;
+    public void setLuckyStars(Collection<String> lucky_stars) {
+        this.lucky_stars = new ArrayList<>(lucky_stars);
     }
 
 }
