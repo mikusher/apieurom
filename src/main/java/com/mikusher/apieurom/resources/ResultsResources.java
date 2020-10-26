@@ -5,6 +5,9 @@ import com.mikusher.apieurom.repository.ResultsRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -20,8 +23,8 @@ public class ResultsResources {
 
     @GetMapping("/results")
     @ApiOperation(value = "Show all results")
-    public List<Results> listResults(){
-        return resultsRepository.findAll();
+    public ResponseEntity<?> listResults(Pageable pageable){
+        return new ResponseEntity<>(resultsRepository.findAll(pageable), HttpStatus.OK);
     }
 
     @GetMapping("results/{id}")
@@ -30,6 +33,14 @@ public class ResultsResources {
         return resultsRepository.findById(id);
     }
 
+    @GetMapping("date/{date}")
+    @ApiOperation(value = "Show one result, get result by date")
+    public Results resultByDate(@PathVariable(value = "date") String date){
+        return resultsRepository.findDistinctFirstByDate(date);
+    }
+
+    //new values is save automatically
+    @ApiIgnore
     @PostMapping("/results")
     @ApiOperation(value = "Save, new result in data base")
     public Results saveNewResult(@RequestBody Results results){
