@@ -1,5 +1,8 @@
 package com.mikusher.apieurom.controller;
 
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
 import com.mikusher.apieurom.config.TwilioConfiguration;
 import com.mikusher.apieurom.repository.SmsSender;
 import com.mikusher.apieurom.request.SmsRequest;
@@ -44,6 +47,13 @@ public class TwilioSmsSender implements SmsSender {
 
     private boolean isPhoneNumberValid(String phoneNumber) {
         // valid number
-        return true;
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+        Phonenumber.PhoneNumber swissNumberProto = new Phonenumber.PhoneNumber();
+        try {
+            swissNumberProto = phoneUtil.parse(phoneNumber, "PT");
+        } catch (NumberParseException e) {
+            System.err.println("NumberParseException was thrown: " + e.toString());
+        }
+        return phoneUtil.isValidNumber(swissNumberProto);
     }
 }
