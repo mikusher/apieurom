@@ -46,7 +46,7 @@ public class TwilioSmsSender implements SmsSender {
     }
 
     private boolean isPhoneNumberValid(String phoneNumber) {
-        // valid number
+        // validate
         PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
         Phonenumber.PhoneNumber swissNumberProto = new Phonenumber.PhoneNumber();
         try {
