@@ -30,8 +30,6 @@ public class ApieuromApplication {
 @Component
 class DemoCommandLineRunner implements CommandLineRunner {
 
-
-
 	@Autowired
 	private ResultsRepository resultsRepository;
 
